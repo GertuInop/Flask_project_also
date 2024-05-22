@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Отзыв к "{{ article.title }}" 
+{% endblock %}
+
+{% block body %}
+    <div class="artical_view">
+
+        <div style="display: flex;">
+            <div class="artical_title_view">
+                <h1>Отзыв к {{ article.title }}</h1>
+            </div>
+            <div>
+                <form method="post">
+                    {% if article.user_id == user.id %}<input type="submit" class="log_but5" onclick="alert_deleting()" value="Удалить отзыв" style="left: 280px;">{% endif %}
+                </form>
+            </div>
+        </div>
+
+        <div class="artical_text_view">
+            <h2>{{ article.user }}</h2>
+            <h3>Дата: {{ article.date.date() }}</h3>
+            <p>{{ article.text }}</p>
+        </div>
+    </div>
+    <script>
+        function alert_deleting(){
+            alert("Вы уверены, что хотите удалить свой отзыв? Для этого нажмите ОК");
+            window.open("/delete_view", "_self");
+        }
+    </script>
+{% endblock %}

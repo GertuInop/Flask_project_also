@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Новый обзор
+{% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert-danger1" style="top: 130px;">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+<div class="main_view">
+    <div class="main_part_pr_view">
+        <h1>Новый обзор</h1>
+        <form method="post" action="new_view">
+            <p>Название книги<p> <input type="text" name="title" id="title" class="input_place2" style="width: 300px; left: 0px; margin-left: 0px; top: 0px;"><br>
+            <p>Ваш отзыв (от 200 до 2500 символов)</p> <textarea type="text" name="discription" id="discription" class="input_place2" style="width: 940px; height: 150px; left: 25px; top: 0px;"></textarea><br>
+            <input type="submit" class="log_but_view" value="Создать">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

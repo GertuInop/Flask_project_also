@@ -1,0 +1,31 @@
+{% extends 'base_loa.html' %}
+
+{% block title %}
+Авторизация
+{% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <div class="alert-danger">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+  </div>
+{% endif %}
+{% endwith %}
+    <div class="shape1">
+        <h1>Вход</h1>
+        <form method="post" action="login">
+            <h2 id="login">Логин или почта</h2>
+            <input type="text" name="username" id="username" class="input_place">
+            <h2>Пароль</h2>
+            <input type="password" name="password" id="password" class="input_place"><br>
+            <input type="submit" class="log_but" value="Войти">
+        </form>
+        <p>Если у вас нет учётной записи, то нажмите на <a href="\create_acc">РЕГИСТРАЦИЯ</a></p>
+    </div>
+    <div class="shape2">
+        <img src="static\pictures\icon_title2.jpg" class="title_img">
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Обзоры
+{% endblock %}
+
+{% block body %}
+        <div style="display: flex; margin-left: 215px; flex-wrap: wrap;">
+            {% for el in articals %}
+                {% if el.is_deleted == False %}
+                    <a href="\views\{{ el.id }}">
+                        <div class="artical">
+                            <img src="static\pictures\icon.png">
+                            <div class="artical_title">
+                                <h1>Отзыв к "{{ el.title }}"</h1>
+                                <h2>{{ el.user }}</h2>
+                                <h3>Дата: {{ el.date.date() }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% if k == 0 %}
+        <h1 class="rec">На странице отсутсвуют обзоры</h1>
+    {% endif %}
+{% endblock %}

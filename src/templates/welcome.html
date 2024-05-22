@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="static\pictures\icon.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oranienbaum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Oranienbaum&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Обзор</title>
+</head>
+<body>
+    <img src="static\pictures\icon_title.jpg" class="title_img">
+    <div class="welcome_text">
+        <h1>Если вы хотите погрузиться в мир<br>искусства художественной<br>литературы и делится своими<br>отзывами, то скорее<br>присоединяйся к<br>нашему сообществу!</h1>
+    </div>
+    <input type="button" value="ВОЙТИ" class="welcom_but" onclick="login()">
+    <div class="welcom_r_part">
+        <div class="fidur2">
+            <div class="fidur3"></div>
+            <div class="fidur4">
+                <h1>Маша</h1>
+                <p>Я недавно<br>прочитала такую<br>интересную книгу!</p>
+            </div>
+            <div class="fidur5"></div>
+            <div class="fidur6">
+                <h1>Андрей</h1>
+                <p>Правда?<br>А расскажи о ней<br>по-подробней!</p>
+            </div>
+        </div>
+        <div class="fidur0"></div>
+        <div class="fidur1"></div>
+    </div>
+</body>
+<script>
+    function login(){
+        window.open("/home", "_self");
+    }
+</script>
+</html>

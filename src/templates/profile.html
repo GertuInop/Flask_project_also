@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+{% block body %}
+<div class="main">
+    <div class="main_part_pr">
+        <h1>{{ user.name }} {{ user.second_name }}</h1>
+        <p>Логин: {{ user.username }}</p>
+        <p>Почта: {{ user.email }}</p>
+        <p>Возраст: {{ user.age }}</p>
+        <p>Город: {{ user.town }}</p>
+        <p>Номер телефона: {{ user.phone_number }}</p>
+        <div>
+            <a href="\changings" class="log_but1">Изменить</a>
+            <a href="{{ url_for('logout') }}" class="log_but">Выйти</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
