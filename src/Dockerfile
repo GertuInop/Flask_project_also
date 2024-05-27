@@ -14,4 +14,4 @@ WORKDIR /opt/app
 
 COPY . /opt/app/
 
-CMD [ "puthon", "./app.py" ]
+CMD [ "python", "./app.py" ]
