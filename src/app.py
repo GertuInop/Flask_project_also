@@ -118,8 +118,9 @@ def changings():
                                 user_change.phone_number = phone_number
                                 try:
                                     if phone_number != "":
+                                        phone_number = int(phone_number)
                                         if phone_number > 0:
-                                            user_change.phone_number = int(phone_number)
+                                            user_change.phone_number = phone_number
                                         else:
                                             flash('Недопустимый номер телефона')
                                     user_change.name = name
@@ -144,8 +145,9 @@ def changings():
                         user_change.phone_number = phone_number
                         try:
                             if (phone_number != ""):
+                                phone_number = int(phone_number)
                                 if phone_number > 0:
-                                    user_change.phone_number = int(phone_number)
+                                    user_change.phone_number = phone_number
                                 else:
                                     flash('Недопустимый номер телефона')
                             user_change.name = name
