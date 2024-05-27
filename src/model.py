@@ -23,7 +23,7 @@ class User(UserMixin, db.Model):
     second_name = db.Column(db.String(80), nullable=True)
     town = db.Column(db.String(80), nullable=True)
     age = db.Column(db.Integer, nullable=False)
-    phone_number = db.Column(db.String(10), nullable=True)
+    phone_number = db.Column(db.Integer, nullable=True)
     is_deleted = db.Column(db.Boolean, default = False)
 
     def __repr__(self):

@@ -116,24 +116,40 @@ def changings():
                                 user_change.email = email
                                 user_change.password = generate_password_hash(password_chek)
                                 user_change.phone_number = phone_number
-                                user_change.name = name
-                                user_change.second_name = second_name
-                                user_change.age = age
-                                user_change.town = town
-                                db.session.commit()
-                                return redirect(url_for('profile'))
-                            else:
-                                flash('Вы ввели неправельный пароль')
+                                try:
+                                    if phone_number != "":
+                                        user_change.phone_number = int(phone_number)
+                                    user_change.name = name
+                                    user_change.second_name = second_name
+                                    try:
+                                        user_change.age = int(age)
+                                    except:
+                                        flash('Вы заполнили строку возраста неправильно')
+                                        user_change.town = town
+                                        db.session.commit()
+                                        return redirect(url_for('profile'))
+                                    else:
+                                        flash('Вы ввели неправильный пароль')
+                                except:
+                                    flash('Вы заполнили строку номера телефона неправильно')
                     else:
                         user_change.username  = username
                         user_change.email = email
                         user_change.phone_number = phone_number
-                        user_change.name = name
-                        user_change.second_name = second_name
-                        user_change.age = age
-                        user_change.town = town
-                        db.session.commit()
-                        return redirect(url_for('profile'))
+                        try:
+                            if (phone_number != ""):
+                                user_change.phone_number = int(phone_number)
+                            user_change.name = name
+                            user_change.second_name = second_name
+                            try:
+                                user_change.age = int(age)
+                                user_change.town = town
+                                db.session.commit()
+                                return redirect(url_for('profile'))
+                            except:
+                                flash('Вы заполнили строку возраста неправильно')
+                        except:
+                            flash('Вы заполнили строку номера телефона неправильно')
     return render_template('changings.html', user=current_user)
 
 
@@ -166,23 +182,27 @@ def create_acc():
         password = request.form['password']
         email = request.form['email']
         name = request.form['name']
-        age = request.form['age']
+        try:
+            age = request.form['age']
+            age = int(age)
+            
+            user = User.query.filter_by(username=username).first()
 
-        user = User.query.filter_by(username=username).first()
-
-        if (username == "" or password == "" or email == "" or name == "" or age == None):
-            flash('Некоторые поля не заполнены')
-        else:
-            if (user):
-                flash('Такой аккаунт уже существует')
+            if (username == "" or password == "" or email == "" or name == "" or age == None):
+                flash('Некоторые поля не заполнены')
             else:
-                if (len(name) > 14):
-                    flash('Имя должно быть меньше 14 символов')
+                if (user):
+                    flash('Такой аккаунт уже существует')
                 else:
-                    new_user = User(username=username, password=generate_password_hash(password), email=email, name=name, second_name="", town="", age=age, phone_number="")
-                    db.session.add(new_user)
-                    db.session.commit()
-                    return redirect(url_for('login'))
+                    if (len(name) > 14):
+                        flash('Имя должно быть меньше 14 символов')
+                    else:
+                        new_user = User(username=username, password=generate_password_hash(password), email=email, name=name, second_name="", town="", age=age, phone_number="")
+                        db.session.add(new_user)
+                        db.session.commit()
+                        return redirect(url_for('login'))
+        except:
+            flash('Вы заполнили строку возраста неправильно')
     return render_template("create_acc.html")
 
 @app.route('/logout')
