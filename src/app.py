@@ -153,8 +153,9 @@ def changings():
                             user_change.name = name
                             user_change.second_name = second_name
                             try:
-                                user_change.age = int(age)
+                                age = int(age)
                                 if age > 0 and age < 122:
+                                    user_change.age = age
                                     user_change.town = town
                                     db.session.commit()
                                     return redirect(url_for('profile'))
