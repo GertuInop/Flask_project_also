@@ -12,15 +12,15 @@
                 <div>
                     <label>Логин*</label> <input type="text" name="username" id="username" class="input_place2" style="width: 250px;" value="{{ user.username }}"><br>
                     <label>Почта*</label> <input type="text" name="email" id="email" class="input_place2" style="width: 250px;" value="{{ user.email }}"><br>
-                    <label>Телефон</label> <input type="text" name="phone_number" id="phone_number" class="input_place2" style="width: 212px;" value="{{ user.phone_number }}"><br>
+                    <label>Телефон</label> <input type="number" name="phone_number" id="phone_number" class="input_place2" style="width: 212px;" value="{{ user.phone_number }}"><br>
                     <label>Пароль</label> <input type="password" name="password" id="password" class="input_place2"style="width: 230px;" placeholder="Старый пароль"><br>
                     <input type="password" name="password_chek" id="password_chek" class="input_place2"style="width: 230px; left: 197px;" placeholder="Новый пароль"><br>
                 </div>
                 <div style="padding-left: 40px;">
                     <label>Имя*</label><input type="text" name="name" id="name" class="input_place2" value="{{ user.name }}"><br>
-                    <label>Фамилия</label><input type="int" name="second_name" id="second_name" class="input_place2" style="width: 260px;" value="{{ user.second_name }}"><br>
-                    <label>Возраст*</label> <input type="text" name="age" id="age" class="input_place2" style="width: 50px; text-align: center;" value="{{ user.age }}"><br>
-                    <label>Город</label><input type="int" name="town" id="town" class="input_place2" style="width: 310px;" value="{{ user.town }}"><br>
+                    <label>Фамилия</label><input type="text" name="second_name" id="second_name" class="input_place2" style="width: 260px;" value="{{ user.second_name }}"><br>
+                    <label>Возраст*</label> <input type="number" name="age" id="age" class="input_place2" style="width: 50px; text-align: center;" value="{{ user.age }}"><br>
+                    <label>Город</label><input type="text" name="town" id="town" class="input_place2" style="width: 310px;" value="{{ user.town }}"><br>
                 </div>
             </div>
             <input type="submit" class="log_but2" value="Сохранить" style="left: 180px; width: 250px;">
