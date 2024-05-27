@@ -118,34 +118,46 @@ def changings():
                                 user_change.phone_number = phone_number
                                 try:
                                     if phone_number != "":
-                                        user_change.phone_number = int(phone_number)
+                                        if phone_number > 0:
+                                            user_change.phone_number = int(phone_number)
+                                        else:
+                                            flash('Недопустимый номер телефона')
                                     user_change.name = name
                                     user_change.second_name = second_name
                                     try:
                                         user_change.age = int(age)
+                                        if age > 0 and age < 122:
+                                            user_change.town = town
+                                            db.session.commit()
+                                            return redirect(url_for('profile'))
+                                        else:
+                                            flash('Недопустимый возраст')
                                     except:
                                         flash('Вы заполнили строку возраста неправильно')
-                                        user_change.town = town
-                                        db.session.commit()
-                                        return redirect(url_for('profile'))
-                                    else:
-                                        flash('Вы ввели неправильный пароль')
                                 except:
                                     flash('Вы заполнили строку номера телефона неправильно')
+                            else:
+                                flash('Вы ввели неправильный пароль')
                     else:
                         user_change.username  = username
                         user_change.email = email
                         user_change.phone_number = phone_number
                         try:
                             if (phone_number != ""):
-                                user_change.phone_number = int(phone_number)
+                                if phone_number > 0:
+                                    user_change.phone_number = int(phone_number)
+                                else:
+                                    flash('Недопустимый номер телефона')
                             user_change.name = name
                             user_change.second_name = second_name
                             try:
                                 user_change.age = int(age)
-                                user_change.town = town
-                                db.session.commit()
-                                return redirect(url_for('profile'))
+                                if age > 0 and age < 122:
+                                    user_change.town = town
+                                    db.session.commit()
+                                    return redirect(url_for('profile'))
+                                else:
+                                    flash('Недопустимый возраст')
                             except:
                                 flash('Вы заполнили строку возраста неправильно')
                         except:
@@ -197,10 +209,13 @@ def create_acc():
                     if (len(name) > 14):
                         flash('Имя должно быть меньше 14 символов')
                     else:
-                        new_user = User(username=username, password=generate_password_hash(password), email=email, name=name, second_name="", town="", age=age, phone_number="")
-                        db.session.add(new_user)
-                        db.session.commit()
-                        return redirect(url_for('login'))
+                        if age > 0 and age < 122:
+                            new_user = User(username=username, password=generate_password_hash(password), email=email, name=name, second_name="", town="", age=age, phone_number="")
+                            db.session.add(new_user)
+                            db.session.commit()
+                            return redirect(url_for('login'))
+                        else:
+                            flash('Недопустимый возраст')
         except:
             flash('Вы заполнили строку возраста неправильно')
     return render_template("create_acc.html")
