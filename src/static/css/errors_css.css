@@ -1,0 +1,153 @@
+@keyframes background-opening{
+    from{
+        background-size: auto 0px;
+        background-position: 30%;
+    }
+    to{
+        background-size: auto 100px;
+    }
+}
+@keyframes error-opening{
+    from{
+        height: 0px;
+    }
+    to{
+        height: 100px;
+    }
+}
+
+body{
+    margin: 0px;
+    width: 100%;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: 1700px auto;
+    background-image: url('/static/pictures/error_page.png');
+}
+.background{
+    width: 300px;
+    height: 100px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-image: url('/static/error_pictures/bg.png');
+    margin: 0px;
+    top: 30%;
+    right: 39%;
+
+    animation-name: background-opening;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+.error_400{
+    width: 300px;
+    position: absolute;
+    top: 25%;
+    right: -25%;
+    background-size: auto 50px;
+    background-repeat: no-repeat;
+    background-image: url('/static/error_pictures/400.png');
+
+    animation-delay: 1s;
+    animation-name: error-opening;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+.error_402{
+    width: 300px;
+    height: 100px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: auto 100px;
+    background-image: url('/static/error_pictures/402.png');
+    margin: 0px;
+    top: 30%;
+    right: 39%;
+}
+.error_405{
+    width: 300px;
+    position: absolute;
+    top: 25%;
+    right: -25%;
+    background-size: auto 50px;
+    background-repeat: no-repeat;
+    background-image: url('/static/error_pictures/405.png');
+
+    animation-delay: 1s;
+    animation-name: error-opening;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+.error_501{
+    width: 300px;
+    position: absolute;
+    top: 25%;
+    right: -30%;
+    background-size: auto 50px;
+    background-repeat: no-repeat;
+    background-image: url('/static/error_pictures/501.png');
+
+    animation-delay: 1s;
+    animation-name: error-opening;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+.error_503{
+    width: 300px;
+    position: absolute;
+    top: 25%;
+    right: -28%;
+    background-size: auto 50px;
+    background-repeat: no-repeat;
+    background-image: url('/static/error_pictures/503.png');
+
+    animation-delay: 1s;
+    animation-name: error-opening;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+h1{
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 36px;
+	line-height: 42px;
+    top: 0px;
+	text-align: center;
+
+	color: #000000;
+}
+.button{
+    transition: 0.1s;
+	box-sizing: border-box;
+
+	position: absolute;
+	width: 305px;
+	height: 50px;
+	left: 618px;
+    top: 70%;
+
+	background: #FFF500;
+	border: 3px solid #000000;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 16px;
+
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 36px;
+	line-height: 42px;
+	text-align: center;
+
+	color: #FFFFFF;
+
+	text-shadow: 0px 2px 4.5px rgba(0, 0, 0, 0.72);
+}
+.button:hover{
+	transition: 0.1s;
+	background: #ffffff;
+	border: 5px solid #FFF500;
+	border-radius: 10px;
+	font-weight: 500;
+	font-size: 36px;
+	color: #FFF500;
+}

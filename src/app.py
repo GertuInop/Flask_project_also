@@ -236,5 +236,49 @@ def delete():
     logout_user()
     return redirect(url_for('home'))
 
+# @app.route('/test')
+# def test():
+#     return render_template('errors/402.html')
+
+@app.errorhandler(400)
+def bad_request(e):
+    return render_template('errors/400.html'), 400
+
+@app.errorhandler(401)
+def unauthorized(e):
+    return render_template('errors/401.html'), 401
+
+# @app.errorhandler(402)
+# def payment_required(e):
+#     return render_template('errors/402.html'), 402
+
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template('errors/403.html'), 403
+
+@app.errorhandler(404)
+def not_found_error(e):
+    return render_template('errors/404.html'), 404
+
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return render_template('errors/405.html'), 405
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('errors/500.html'), 500
+
+@app.errorhandler(501)
+def not_implemented(e):
+    return render_template('errors/501.html'), 501
+
+@app.errorhandler(502)
+def bad_gateway(e):
+    return render_template('errors/502.html'), 502
+
+@app.errorhandler(503)
+def service_unavailable(e):
+    return render_template('errors/503.html'), 503
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

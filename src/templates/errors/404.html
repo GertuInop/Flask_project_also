@@ -1,0 +1,17 @@
+{% extends 'error_base.html' %}
+
+{% block title %}
+404 - не найдено
+{% endblock %}
+
+{% block body %}
+<lottie-player 
+    src="{{ url_for('static', filename='json/404.json') }}"
+    background="transparent"  speed="1"
+    style="width: 300px; height: 300px; top: 200px; margin-top: 140px; margin-left: auto; margin-right: auto;"
+    autoplay>
+</lottie-player>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<h1>Страница не найдена</h1>
+<a href="/home" class="button" style="text-decoration: none;">На главную</a>
+{% endblock %}
