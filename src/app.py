@@ -4,7 +4,7 @@ from model import Artical, User, Chats, Msg, db
 from flask_login import LoginManager, login_user, current_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
-from flask_socketio import SocketIO, send
+# from flask_socketio import SocketIO, send
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -13,7 +13,7 @@ app.config['SECRET_KEY'] = 'secret-key-goes-here'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-socketio = SocketIO(app)
+# socketio = SocketIO(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -393,14 +393,14 @@ def service_unavailable(e):
 
 
 
-@socketio.on('message')
-def handleMessage(data):
-    print(f"Message: {data}")
-    send(data, broadcast=True)
+# @socketio.on('message')
+# def handleMessage(data):
+#     print(f"Message: {data}")
+#     send(data, broadcast=True)
 
-    message = Msg(user_id=data['username'], msg=data['msg'])
-    db.session.add(message)
-    db.session.commit()
+#     message = Msg(user_id=data['username'], msg=data['msg'])
+#     db.session.add(message)
+#     db.session.commit()
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0')
+    app.run(host='0.0.0.0')
