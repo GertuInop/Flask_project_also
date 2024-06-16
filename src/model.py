@@ -12,6 +12,24 @@ class Artical(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     text = db.Column(db.String(2500), nullable=False)
     is_deleted = db.Column(db.Boolean, default = False)
+    views = db.Column(db.Integer, default = 0)
+
+class Chats(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    img_src = db.Column(db.Text, nullable=True)
+    title = db.Column(db.String(50), nullable=False, unique=True)
+    description = db.Column(db.String(100), nullable=False)
+    first_user_id = db.Column(db.Integer, nullable=False)
+    first_user_name = db.Column(db.String(80), nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    is_deleted = db.Column(db.Boolean, default = False)
+
+class Msg(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    msg = db.Column(db.Text, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    is_deleted = db.Column(db.Boolean, default = False)
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)

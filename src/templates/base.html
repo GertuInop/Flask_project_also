@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="C:\Users\Пользователь\Desktop\fproject\static\pictures\icon.png">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='pictures/icon.jpg')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oranienbaum&display=swap" rel="stylesheet">
@@ -13,12 +13,13 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="\home"><img src="static\pictures\icon_title3.jpg"></a>
+        <a href="\home"><img src="{{ url_for('static', filename='pictures/icon_title3.jpg')}}"></a>
         <div class="links">
-            <a href="\recomendation">Рекомендации</a>
+            <a href="\home">Главная</a>
             <a href="\views">Обзоры</a>
-            <a href="\subs">Подписки</a>
+            <a href="\chats">Мои чаты</a>
             <a href="\new_view">Новый обзор</a>
+            <!-- <h1 class="ok">|</h1> -->
             <a href="\login" class="right">
                 {% if current_user.is_authenticated %}
                     {{ user.name }}
@@ -30,8 +31,10 @@
     </div>
     {% block body %}{% endblock %}
     <div class="footer">
-        <a href="\home"><img src="static\pictures\icon_title4.jpg"></a>
-        <p>Этот сайт был создан студентом ГБПОУ Колледжа "Царицыно"<br>Семеновым Иваном Дмитриевичем из группы 23ИС-1-1</p>
+        <div>
+            <a href="\home"><img src="{{ url_for('static', filename='pictures/icon_title4.jpg')}}"></a>
+            <p>Этот сайт был создан студентом ГБПОУ Колледжа "Царицыно"<br>Семеновым Иваном Дмитриевичем из группы 23ИС-1-1</p>
+        </div>
     </div>
 </body>
 </html>

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Чаты
+{% endblock %}
+
+{% block body %}
+    <h1 class="rec1"><b>Ваши чаты</b></h1>
+            <div style="display: block; margin-left: 215px; margin-right: 215px; margin-top: 30px; margin-bottom: 30px; height: auto;text-align: center;">
+                {% for el in chats %}
+                    {% if el.is_deleted == False and el.first_user_id == current_user.id%}
+                                <div class="chat_title">
+                                    <img src="{{ el.img_src }}">
+                                    <h1>{{ el.title }}</h1>
+                                    <h1>|</h1>
+                                    <p>{{ el.description }}</p>
+                                    <a href="\chat\{{ el.id }}\changings" style="text-decoration: none; margin-left: auto; margin-right: 0%;">Изменить</a>
+                                    <a href="\chat\{{ el.id }}" style="text-decoration: none; margin-left: 15px;">Присоединиться к чату</a>
+                                </div>
+                    {% elif  el.second_user_id == current_user.id %}
+                            <div class="chat_title">
+                                <img src="{{ el.img_src }}">
+                                <h1>{{ el.title }}</h1>
+                                <h1>|</h1>
+                                <p>{{ el.description }}</p>
+                                <a href="\chat\{{ el.id }}" style="text-decoration: none;">Присоединиться к чату</a>
+                            </div>
+                    {% endif %}
+                {% endfor %}
+                <a href="/new_chat" class="new_chat">Новый чат</a>
+            </div>
+        {% if n == 0 %}
+            <h1 class="rec">У вас пока нет чатов</h1>
+        {% endif %}
+    <h1 class="rec1"><b>Все чаты на странице</b></h1>
+            <div style="display: block; margin-left: 215px; margin-right: 215px; margin-top: 30px; margin-bottom: 30px;">
+                {% for el in chats %}
+                    {% if el.is_deleted == False %}
+                                <div class="chat_title">
+                                    <img src="{{ el.img_src }}">
+                                    <h1>{{ el.title }}</h1>
+                                    <h1>|</h1>
+                                    <p>{{ el.description }}</p>
+                                    {% if el.first_user_id == current_user.id %} <a href="\chat\{{ el.id }}\changings" style="text-decoration: none; margin-left: auto; margin-right: 0%;">Изменить</a> {% endif %}
+                                    <a href="\chat\{{ el.id }}" style="text-decoration: none; {% if el.first_user_id == current_user.id %} margin-left: 15px; {% endif %}">Присоединиться к чату</a>
+                                </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% if k == 0 %}
+            <h1 class="rec">На странице пока нет чатов</h1>
+        {% endif %}
+{% endblock %}

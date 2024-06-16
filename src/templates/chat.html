@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Новый чат "{{ chat.title }}" 
+{% endblock %}
+
+{% block body %}
+<div class="chat">
+    <div>
+        <div style="display: flex;">
+            <div class="chat_title_view">
+                <h1>{{ chat.title }}</h1>
+            </div>
+        </div>
+    
+        <div class="chat_msg_s_view">
+            <ul id="messages"></ul>
+        </div>
+        <form id="form_send_msg" autocomplete="off" novalidate>
+            <input type="text" id="msg" name="msg" placeholder="Напишите ваше сообщение" class="msg_input">
+            <button type="submit" id="send_msg" class="msg_but">Отправить</button>
+        </form>
+    </div>
+    <div style="width: 100%;">
+        <div class="chat_user_view_title">
+            <h2>Пользователи чата <br> в онлайн</h2>
+        </div>
+        <div class="chat_user_view">
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(() => {
+        $('#form_send_msg').on('submit', (e) => {
+            e.preventDefault();
+        });
+
+        const socket = io.connect('http://127.0.0.1:5000/chat/{{ chat.id }}');
+        const username = $('{{ user.username }}') ;
+
+        socket.on('connect', () => {
+            socket.send({'username': 'Service message', 'msg': 'User ' + username + ' has connected!'});
+        })
+
+        $('#send_msg').on('click', () => {
+            socket.send({
+                'msg': $('#msg').val(),
+                'username': username
+            });
+            $('#msg').val('');
+        });
+
+        socket.on('message', data => {
+            if (data.msg.length > 0){
+                if (data.username === 'Service message'){
+                    $('#messages').append(`<li class="service_msg"><b>${data.username}:<b> ${data.msg}</li>`);
+                } else {
+                    $('#messages').append(`<li class="msg"><b>${data.username}:<b> ${data.msg}</li>`);
+                }
+                console.log('Received message');
+            }
+        });
+    });
+</script>
+{% endblock %}

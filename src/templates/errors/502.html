@@ -5,13 +5,31 @@
 {% endblock %}
 
 {% block body %}
-    <lottie-player 
+    <script>
+        const container = `
+        <div id='error_img' style="margin-left: 36%;">
+            <img style="height: 300px; top: 200px; margin-top: 140px; margin-left: auto; margin-right: auto;" src="{{ url_for('static', filename='error_pictures/502.png') }}" onclick="Next();">
+        </div>`;
+
+        document.body.innerHTML = container;
+
+        function Next(){
+            var el = document.getElementById("error_img");
+            el.remove();
+            const container = `
+            <lottie-player 
             src="{{ url_for('static', filename='json/502.json') }}"
             background="transparent"  speed="1"
             style="width: 300px; height: 300px; top: 200px; margin-top: 140px; margin-left: auto; margin-right: auto;"
-            autoplay>    
-    </lottie-player>
+            autoplay>
+            </lottie-player>
+            <h1>Плохой, ошибочный шлюз</h1>
+            <a href="/home" class="button" style="text-decoration: none;">На главную</a>`;
+
+            document.body.innerHTML = container;
+        }
+    </script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <h1>Плохой, ошибочный шлюз</h1>
+    <h1 class="animated_text">Плохой, ошибочный шлюз</h1>
     <a href="/home" class="button" style="text-decoration: none;">На главную</a>
 {% endblock %}

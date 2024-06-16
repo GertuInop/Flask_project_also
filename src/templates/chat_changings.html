@@ -1,0 +1,37 @@
+{% extends 'base_loa.html' %}
+
+{% block title %}
+Изменения
+{% endblock %}
+
+{% block body %}
+    <div class="shape3" style="height: 437px; margin-top: 50px;">
+        <h1 style="width: 900px;">Изменения чата {{ chat.title }}</h1>
+        <form method="post" action="changings" >
+            <div class="posts">
+                <div>
+                    <label>Название*</label> <input type="text" name="title" id="title" class="input_place2" style="width: 250px;" value="{{ chat.title }}"><br>
+                    <label>Описание*</label> <input type="text" name="description" id="description" class="input_place2" style="width: 600px;" value="{{ chat.description }}"><br>
+                    <label>Ссылка на иконку чата</label> <input type="text" name="src" id="src" class="input_place2" style="width: 415px;" value="{{ chat.img_src }}"><br>
+                </div>
+            </div>
+            <input type="submit" class="log_but2" value="Сохранить" style="left: 180px; width: 250px;">
+            <input type="button" class="log_but4" value="Удалить чат" onclick="alert_deleting()">
+        </form>
+    </div>
+    <script>
+        function alert_deleting(){
+            alert("Вы уверены, что хотите удалить свой чат? Для этого нажмите ОК");
+            window.open("/chat/{{ chat.id }}/delete_chat", "_self");
+        }
+    </script>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert-danger">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+{% endblock %}

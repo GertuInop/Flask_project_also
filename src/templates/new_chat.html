@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Новый обзор
+{% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert-danger1" style="top: 130px;">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+<div class="main_view">
+    <div class="main_part_pr_view">
+        <h1>Новый чат</h1>
+        <form method="post" action="new_chat">
+            <p>Название чата<p> <input type="text" name="title" id="title" class="input_place2" style="width: 300px; left: 0px; margin-left: 0px; top: 0px;"><br>
+            <p>Описание чата (до 100 символов)</p> <input type="text" name="discription" id="discription" class="input_place2" style="width: 940px; left: 25px; top: 0px;"><br>
+            <p>Ссылка на иконку чата<p> <input type="text" name="src" id="src" class="input_place2" style="width: 940px; left: 0px; margin-left: 0px; top: 0px;"><br>
+            <input type="submit" class="log_but_view" value="Создать">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

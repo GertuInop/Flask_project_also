@@ -1,5 +1,5 @@
 from flask import Flask
-from model import Artical, User, db
+from model import Artical, User, Chats, Msg, db
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

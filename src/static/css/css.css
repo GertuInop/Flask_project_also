@@ -1,3 +1,7 @@
+html{
+	margin: 0px;
+	height: auto;
+}
 body{
 	margin: 0px;
 	height: 100%;
@@ -216,7 +220,7 @@ body{
 
 /* Верх страницы */
 .navbar{
-	width: auto;
+	width: 100%;
 	height: 108px;
 	background-color: #FFF500;
 	display: flex;
@@ -225,8 +229,9 @@ body{
 	height: 108px;
 }
 .links{
-	width: 1666px;
+	width: 100%;
 	padding-top: 35px;
+	display: flex;
 }
 .links a{
 	transition: 0.3s;
@@ -249,26 +254,51 @@ body{
 	text-shadow: 0px 4px 5.6px #ffffff;
 }
 .links a.right{
-	float: right;
+	margin-right: 0px;
+	margin-left: auto;
 	padding-right: 40px;
 }
+/* .ok{
+	float: right;
+	text-decoration: none;
+	position: relative;
+	padding-left: 40px;
+	margin-right: 0px;
+	margin: 0px;
+
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 32px;
+	line-height: 38px;
+
+	color: #FFFFFF;
+
+	text-shadow: 0px 4px 5.6px #000000;
+} */
 
 
 /* Низ страницы */
 .footer{
-	height: 170px;
 	background-color: #000000;
-	position: relative;
-	bottom: 0px;
 	display: flex;
+	position: relative;
+	margin-top: auto;
+	margin-bottom: 0px;
+	width: 100%;
+	height: 170px;
+}
+.footer div{
+	margin: auto;
+	display: flex;
+	align-items: center;
+	height: 100px;
 }
 .footer img{
-	padding-left: 450px;
-	padding-top: 50px;
 	height: 62px;
+	width: auto;
 }
 .footer p{
-	padding-top: 60px;
 	color: white;
 
 	font-family: "Roboto", sans-serif;
@@ -276,6 +306,272 @@ body{
 	font-weight: 400;
 	font-size: 15px;
 	margin: 0px;
+}
+
+
+/* Чаты */
+.new_chat{
+	transition: 0.1s;
+
+	text-decoration: none;
+	padding: 10px;
+	padding-top: 10px;
+
+	background: #FFF500;
+	border: 3px solid #000000;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 16px;
+
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 36px;
+	line-height: 42px;
+
+	color: #FFFFFF;
+
+	text-shadow: 0px 2px 4.5px rgba(0, 0, 0, 0.72);
+}
+.new_chat:hover{
+	transition: 0.1s;
+	background: #ffffff;
+	border: 5px solid #FFF500;
+	border-radius: 10px;
+	font-weight: 500;
+	font-size: 40px;
+	color: #FFF500;
+}
+
+.chat_title{
+	display: flex;
+	transition: 0.1s;
+	box-sizing: border-box;
+
+	position: relative;
+	text-align: center;
+	padding: 10px;
+
+	background: #FFF500;
+	border: 3px solid #000000;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 16px;
+
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 42px;
+	margin-bottom: 30px;
+
+	color: #FFFFFF;
+
+	text-shadow: 0px 2px 4.5px rgba(0, 0, 0, 0.72);
+}
+.chat_title img{
+	margin-top: 7px;
+	margin-left: 10px;
+	margin-bottom: 7px;
+	height: 50px;
+	width: auto;
+	border-radius: 50%;
+}
+.chat_title h1{
+	margin: 0px;
+	padding-top: 10px;
+	padding-left: 20px;
+	
+	font-size: 30px;
+}
+.chat_title p{
+	margin: 0px;
+	padding-top: 12px;
+	padding-left: 20px;
+	
+	font-size: 20px;
+}
+.chat_title a{
+	transition: 0.1s;
+	box-sizing: border-box;
+
+	position: relative;
+	text-decoration: none;
+	padding: 5px;
+	margin: 5px;
+	margin-left: auto;
+	margin-right: 0px;
+
+	background: #FFF500;
+	border: 3px solid #000000;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 16px;
+
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 42px;
+
+	color: #FFFFFF;
+
+	text-shadow: 0px 2px 4.5px rgba(0, 0, 0, 0.72);
+
+}
+.chat_title a:hover{
+	transition: 0.1s;
+	background: #ffffff;
+	border: 3px solid #FFF500;
+	border-radius: 10px;
+	font-size: 28px;
+	color: #FFF500;
+}
+.rec1{
+	padding: 0px;
+	text-align: center;
+	color: rgb(0, 0, 0);
+
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 30px;
+	margin: 10px;
+	margin-top: 30.3px;
+}
+.rec1 a.new_chat{
+	align-items: center;
+}
+
+.chat{
+	box-sizing: border-box;
+
+	position: relative;
+	left: 80px;
+	width: 1341px;
+	height: 635px;
+	margin: 13.8px;
+
+	background: #FFF500;
+	border: 1px solid #000000;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 16px;
+
+	display: flex;
+}
+.chat h1{
+	position: relative;
+	margin: 0px;
+	padding-top: 6px;
+	padding-left: 6px;
+	width: 900px;
+
+    font-family: 'Oranienbaum';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 74px;
+
+	color: #FFFFFF;
+
+	text-shadow: 0px 2px 3.9px #000000;
+}
+.chat_title_view{
+	position: relative;
+	width: 526px;
+	height: 83px;
+	left: 6px;
+	top: 6px;
+	border-radius: 10px;
+}
+.chat_msg_s_view{
+	position: relative;
+	width: 1026px;
+	height: 443px;
+	left: 6px;
+	top: 6px;
+	border-radius: 10px;
+	background-color: white;
+}
+.msg_input{
+    transition: 0.1s;
+	box-sizing: border-box;
+
+	left: 35px;
+	position: relative;
+	width: 800px;
+	height: 48px;
+	padding-top: 0px;
+	top: 25px;
+
+    background: #EBEBEB;
+    border: 1px solid #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+}
+.msg_input:hover{
+	transition: 0.05s;
+    background: #fdfdfd;
+    border: 3px solid #000000;
+}
+.msg_input:focus{
+	background: #fdfdfd;
+    border: 3px solid #000000;
+}
+.msg_but{
+	transition: 0.1s;
+	box-sizing: border-box;
+
+	position: absolute;
+	margin-top: 25px;
+	left: 850px;
+
+	background: #FFF500;
+	border: 3px solid #000000;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 16px;
+
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 25px;
+	line-height: 42px;
+	text-align: center;
+
+	color: #FFFFFF;
+
+	text-shadow: 0px 2px 4.5px rgba(0, 0, 0, 0.72);
+}
+.msg_but:hover{
+	margin-top: 23px;
+	transition: 0.1s;
+	background: #ffffff;
+	border: 5px solid #FFF500;
+	border-radius: 10px;
+	font-weight: 500;
+	font-size: 26px;
+	color: #FFF500;
+}
+.chat_user_view_title{
+	margin-top: 80px;
+}
+.chat_user_view_title h2{
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 25px;
+	line-height: 42px;
+	text-align: center;
+
+	color: #FFFFFF;
+
+	text-shadow: 0px 2px 4.5px rgba(0, 0, 0, 0.72);
+}
+.chat_user_view{
+	position: relative;
+	width: 277px;
+	height: 343px;
+	left: 20px;
+	top: 6px;
+	border-radius: 10px;
+	background-color: white;
 }
 
 
@@ -479,8 +775,8 @@ body{
 .artical_title h3{
 	position: absolute;
 	margin: 0px;
-	padding-left: 9px;
-	padding-top: 100px;
+	padding-left: 7px;
+	padding-top: 5px;
 	font-family: "Roboto", sans-serif;
 	font-style: normal;
 	font-weight: 400;
@@ -490,7 +786,20 @@ body{
 
 	text-shadow: 0px 2px 3.4px rgba(0, 0, 0, 0.7);
 }
+.artical_title h4{
+	position: relative;
+	margin: 0px;
+	padding-left: 9px;
+	padding-top: 55px;
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 42px;
+	color: #000000;
 
+	text-shadow: 0px 2px 3.4px rgba(0, 0, 0, 0.7);
+}
 
 /* Новый обзор */
 .main_view{
@@ -656,6 +965,20 @@ body{
 	text-shadow: 0px 2px 3.4px rgba(0, 0, 0, 0.7);
 }
 .artical_text_view h3{
+	position: absolute;
+	margin: 0px;
+	padding-left: 9px;
+	padding-top: 48px;
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 42px;
+	color: #000000;
+
+	text-shadow: 0px 2px 3.4px rgba(0, 0, 0, 0.7);
+}
+.artical_text_view h4{
 	position: absolute;
 	margin: 0px;
 	padding-left: 9px;

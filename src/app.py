@@ -1,8 +1,10 @@
-from flask import Flask, render_template, url_for, redirect, request, flash
+from flask import Flask, render_template, url_for, redirect, request, flash, abort
 from flask_sqlalchemy import SQLAlchemy
-from model import Artical, User, db
+from model import Artical, User, Chats, Msg, db
 from flask_login import LoginManager, login_user, current_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import datetime
+from flask_socketio import SocketIO, send
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -11,7 +13,7 @@ app.config['SECRET_KEY'] = 'secret-key-goes-here'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
+socketio = SocketIO(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -20,19 +22,23 @@ db.init_app(app)
 
 @app.route('/')
 def welcome():
+    abort(502)
     return render_template('welcome.html')
 
 @app.route('/home')
 def home():
-    return render_template('main.html', user=current_user)
-
-@app.route('/recomendation')
-def recomendation():
-    return render_template('recomendation.html', user=current_user)
-
-@app.route('/subs')
-def subs():
-    return render_template('subs.html', user=current_user)
+    chats = Chats.query.order_by(Chats.date).all()
+    articals = Artical.query.order_by(Artical.date).all()
+    
+    k=0
+    for el in articals:
+        if el.is_deleted == False:
+            k += 1
+    n=0
+    for el in chats:
+        if el.is_deleted == False:
+            n += 1
+    return render_template('main.html', user=current_user, chats=chats, articals=articals, k=k, n=n)
 
 @app.route('/views')
 def views():
@@ -46,6 +52,11 @@ def views():
 @app.route('/views/<int:id>', methods=['POST', 'GET'])
 def view(id):
     article = Artical.query.get(id)
+
+    timecheck = datetime.now().time()
+
+    article.views += 1
+    db.session.commit()
 
     if request.method == "POST":
         article.is_deleted = True
@@ -75,6 +86,92 @@ def new_view():
         return render_template('new_view.html', user=current_user)
     else:
         return redirect(url_for('login'))
+
+@app.route('/chats')
+def chats():
+    if current_user.is_authenticated != True:
+        return redirect(url_for('login'))
+    chats = Chats.query.order_by(Chats.date).all()
+    k = 0
+    for el in chats:
+        if el.is_deleted == False:
+            k += 1
+    n = 0
+    for el in chats:
+        if (el.is_deleted == False and el.first_user_id == current_user.id):
+            n += 1
+    return render_template('chats.html', user=current_user, k=k, chats=chats, n=n)
+
+@app.route('/new_chat', methods=['POST', 'GET'])
+def new_chat():
+    if current_user.is_authenticated != True:
+        return redirect(url_for('login'))
+    if request.method == "POST":
+        
+        img_src = request.form['src']
+        title = request.form['title']
+        description = request.form['discription']
+        user_id = current_user.id
+        user = current_user.username
+
+        chat = Chats.query.filter_by(title = title).first()
+        if (img_src == "" or title == "" or description == ""):
+            flash('Некоторые поля не заполнены')
+        else:
+            if(chat):
+                flash('Такой чат уже существует')
+            else:
+                if(len(description) > 100):
+                    flash('Описание должно быть меньше 100 символов')
+                else:
+                    new_chat = Chats(img_src=img_src, title=title, description=description, first_user_id=user_id, first_user_name=user)
+                    db.session.add(new_chat)
+                    db.session.commit()
+                    return redirect(url_for('chats'))
+    return render_template('new_chat.html', user=current_user)
+
+@app.route('/chat/<int:id>')
+def chat(id):
+    chat = Chats.query.get(id)
+    if current_user.is_authenticated == False:
+        return redirect(url_for('login'))
+
+    return render_template('chat.html', user=current_user, chat=chat)
+
+@app.route('/chat/<int:id>/changings', methods=['POST', 'GET'])
+def chat_changings(id):
+    chat = Chats.query.get(id)
+    if current_user.is_authenticated == False:
+        return redirect(url_for('login'))
+    if current_user.id == chat.first_user_id:
+        if request.method == "POST":
+            img_src = request.form['src']
+            title = request.form['title']
+            description = request.form['description']
+
+            if (img_src == "" or title == "" or description == ""):
+                flash('Некоторые поля не заполнены')
+            else:
+                if (title == chat.title):
+                    chat.title = title
+                    chat.img_src = img_src
+                    chat.description = description
+                    db.session.commit()
+                else:
+                    chats = Chats.query.filter_by(title = title).first()
+
+                    if (chats):
+                        flash('Такой чат уже существует')
+                    else:
+                        chat.title = title
+                        chat.img_src = img_src
+                        chat.description = description
+                        db.session.commit()
+            return redirect(url_for('chats'))
+    else: 
+        abort(403)
+    return render_template('chat_changings.html', user=current_user, chat=chat)
+
 
 @app.route('/profile')
 def profile():
@@ -236,6 +333,20 @@ def delete():
     logout_user()
     return redirect(url_for('home'))
 
+@app.route('/chat/<int:id>/delete_chat')
+def delete_chat(id):
+    chat = Chats.query.get(id)
+
+    if current_user.is_authenticated == False:
+        return redirect(url_for('login'))
+    if current_user.id == chat.first_user_id:
+        chat.is_deleted = True
+        db.session.commit()
+        logout_user()
+        return redirect(url_for('home'))
+    else:
+        abort(403)
+
 # @app.route('/test')
 # def test():
 #     return render_template('errors/402.html')
@@ -280,5 +391,16 @@ def bad_gateway(e):
 def service_unavailable(e):
     return render_template('errors/503.html'), 503
 
+
+
+@socketio.on('message')
+def handleMessage(data):
+    print(f"Message: {data}")
+    send(data, broadcast=True)
+
+    message = Msg(user_id=data['username'], msg=data['msg'])
+    db.session.add(message)
+    db.session.commit()
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    socketio.run(app, host='0.0.0.0')
