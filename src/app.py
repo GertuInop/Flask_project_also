@@ -22,7 +22,6 @@ db.init_app(app)
 
 @app.route('/')
 def welcome():
-    abort(502)
     return render_template('welcome.html')
 
 @app.route('/home')
