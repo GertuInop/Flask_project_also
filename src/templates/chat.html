@@ -5,6 +5,15 @@
 {% endblock %}
 
 {% block body %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <div class="alert-danger">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+  </div>
+{% endif %}
+{% endwith %}
 <div class="chat">
     <div>
         <div style="display: flex;">
@@ -14,11 +23,13 @@
         </div>
     
         <div class="chat_msg_s_view">
-            <ul id="messages"></ul>
+            <ul id="messages">
+
+            </ul>
         </div>
         <form id="form_send_msg" autocomplete="off" novalidate>
             <input type="text" id="msg" name="msg" placeholder="Напишите ваше сообщение" class="msg_input">
-            <button type="submit" id="send_msg" class="msg_but">Отправить</button>
+            <div id="send_msg" onclick="Send_MSG()" class="msg_but">Отправить</div>
         </form>
     </div>
     <div style="width: 100%;">
@@ -26,42 +37,49 @@
             <h2>Пользователи чата <br> в онлайн</h2>
         </div>
         <div class="chat_user_view">
-            
+            <h2 style="text-align: center; color: gray; font-size: 20px; padding-top: 30%;">Пока не реализовано</h2>
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script type="text/javascript" charset="utf-8">
+    let ul = document.getElementById('messages');
+    let username = "{{ current_user.name }}";
 
-<script>
-    $(document).ready(() => {
-        $('#form_send_msg').on('submit', (e) => {
-            e.preventDefault();
-        });
-
-        const socket = io.connect('http://127.0.0.1:5000/chat/{{ chat.id }}');
-        const username = $('{{ user.username }}') ;
-
-        socket.on('connect', () => {
-            socket.send({'username': 'Service message', 'msg': 'User ' + username + ' has connected!'});
-        })
-
-        $('#send_msg').on('click', () => {
-            socket.send({
-                'msg': $('#msg').val(),
-                'username': username
-            });
-            $('#msg').val('');
-        });
-
-        socket.on('message', data => {
-            if (data.msg.length > 0){
-                if (data.username === 'Service message'){
-                    $('#messages').append(`<li class="service_msg"><b>${data.username}:<b> ${data.msg}</li>`);
-                } else {
-                    $('#messages').append(`<li class="msg"><b>${data.username}:<b> ${data.msg}</li>`);
-                }
-                console.log('Received message');
-            }
-        });
+    const socket = io();
+    socket.on('connect', function(data) {
+        console.log('Socket.IO is connected!!!');
+        let append = document.createElement('p');
+        append.className = "server_msg";
+        append.innerHTML = '{{ current_user.name }} присоеденился(-ась)';
+        ul.append(append);
+        socket.send('{{ current_user.name }} присоеденился(-ась)');
     });
+
+    function Send_MSG(){
+
+        msg = document.getElementById('msg');
+        if (msg.value != ''){
+            msg.style.background = 'white';
+            socket.send('{{ current_user.name }}: ' + msg.value);
+            socket.emit('new event', 'The data can be an object or a string');
+
+            socket.on('server event', function(data) {
+                console.log(data);
+            });
+            
+            let append = document.createElement('p');
+            append.className = "user_msg";
+            append.style = "margin: 0px;";
+            append.innerHTML = '{{ current_user.name }}: ' + msg.value;
+            ul.append(append);
+
+            msg.value = '';
+        }
+        else{
+            msg.style.background = 'red';
+        }
+    }
+
 </script>
 {% endblock %}

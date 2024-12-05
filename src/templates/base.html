@@ -20,7 +20,7 @@
             <a href="\chats">Мои чаты</a>
             <a href="\new_view">Новый обзор</a>
             <!-- <h1 class="ok">|</h1> -->
-            <a href="\login" class="right">
+            <a href="\login" class="right" id="username_in_base">
                 {% if current_user.is_authenticated %}
                     {{ user.name }}
                 {% else %}

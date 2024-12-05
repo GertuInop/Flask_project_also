@@ -4,7 +4,7 @@ from model import Artical, User, Chats, Msg, db
 from flask_login import LoginManager, login_user, current_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
-# from flask_socketio import SocketIO, send
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -13,7 +13,8 @@ app.config['SECRET_KEY'] = 'secret-key-goes-here'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-# socketio = SocketIO(app)
+socketio = SocketIO(app)
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -392,14 +393,21 @@ def service_unavailable(e):
 
 
 
-# @socketio.on('message')
-# def handleMessage(data):
-#     print(f"Message: {data}")
-#     send(data, broadcast=True)
+@socketio.on('connect')
+def connect_event(data):
+    print('Client connected')
 
-#     message = Msg(user_id=data['username'], msg=data['msg'])
-#     db.session.add(message)
-#     db.session.commit()
+@socketio.on('message')
+def handle_message(data):
+    if data == '':
+        flash('Вы не можете отправить пустую строку')
+    else:
+        print('This is a message:', data)
+
+@socketio.on('new event')
+def handle_new_event(data):
+    print('A new event was emitted from the client containing the following payload', data)
+    socketio.emit('server event', {'data': 'This is how you trigger a custom event from the server-side'})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    socketio.run(app, host='0.0.0.0')

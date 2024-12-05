@@ -520,7 +520,7 @@ body{
 	box-sizing: border-box;
 
 	position: absolute;
-	margin-top: 25px;
+	margin-top: -25px;
 	left: 850px;
 
 	background: #FFF500;
@@ -540,7 +540,6 @@ body{
 	text-shadow: 0px 2px 4.5px rgba(0, 0, 0, 0.72);
 }
 .msg_but:hover{
-	margin-top: 23px;
 	transition: 0.1s;
 	background: #ffffff;
 	border: 5px solid #FFF500;
@@ -572,6 +571,23 @@ body{
 	top: 6px;
 	border-radius: 10px;
 	background-color: white;
+}
+.user_msg{
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 42px;
+}
+.server_msg{
+	text-align: center;
+	color: #5c5c5c;
+	font-family: "Roboto", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 42px;
+	margin-top: 0px;
 }
 
 
